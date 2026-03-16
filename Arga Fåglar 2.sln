@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arga Fåglar 2", "Arga Fåglar 2\Arga Fåglar 2.csproj", "{3FD4FB12-3BF3-4F35-A4F2-B4F7F039BF6E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FD4FB12-3BF3-4F35-A4F2-B4F7F039BF6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FD4FB12-3BF3-4F35-A4F2-B4F7F039BF6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FD4FB12-3BF3-4F35-A4F2-B4F7F039BF6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FD4FB12-3BF3-4F35-A4F2-B4F7F039BF6E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D2138BB-9019-4B58-BA69-95B214A8B484}
+	EndGlobalSection
+EndGlobal
