@@ -38,7 +38,7 @@ namespace Arga_Fåglar_2
             vector.X += BeräknaNästaPosition(1, speed.X, speed.Y, gameTime); //position X
             vector.Y += BeräknaNästaPosition(2, speed.X, speed.Y, gameTime); //position Y
 
-            speed.Y += 9.82f * tid; //gravitation
+            speed.Y += 4f * tid; //gravitation
         }
     }
 }

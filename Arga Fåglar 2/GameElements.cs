@@ -15,6 +15,10 @@ namespace Arga_Fåglar_2
         //medlemsvariabler
         static RödFågel rödFågel;
         static List<ProjektilMarkering> markeringar;
+        static Background bakgrund;
+        static Bar bar;
+        static BarBall ball1;
+        static BarBall ball2;
 
         //olika gamestates
         public enum State { Menu, Run, HighScore, Quit }; //de olika statesen i spelet
@@ -25,9 +29,6 @@ namespace Arga_Fåglar_2
         {
 
         }
-
-        //background
-
 
         //menu
         static Menu menu;
@@ -43,6 +44,13 @@ namespace Arga_Fåglar_2
             Texture2D tmpSprite = content.Load<Texture2D>("images/vfx/markering");
             ProjektilMarkering temp = new ProjektilMarkering(tmpSprite, rödFågel.X, rödFågel.Y);
             markeringar.Add(temp);
+
+            //bakgrund
+            bakgrund = new Background(content.Load<Texture2D>("images/background/background"), 0, 0);
+
+            //bar
+            bar = new Bar(content.Load<Texture2D>("images/bar/bar"), 0, 880); //nere i vänstra hörnet
+            ball1 = new BarBall(content.Load<Texture2D>("images/bar/bar_ball"), 6, 1036, 10, 0);
 
             //menu
             menu = new Menu((int)State.Menu);
@@ -66,6 +74,10 @@ namespace Arga_Fåglar_2
         //run update
         public static State RunUpdate(ContentManager content, GameWindow window, GameTime gameTime)
         {
+            bakgrund.Update(window, gameTime); //bakgrund
+            bar.Update(window, gameTime); //bar
+            ball1.UpdateBar(window, gameTime);
+
             rödFågel.Update(window, gameTime);
             foreach (ProjektilMarkering p in markeringar.ToList())
             {
@@ -77,6 +89,10 @@ namespace Arga_Fåglar_2
         //run draw
         public static void RunDraw(SpriteBatch spriteBatch)
         {
+            bakgrund.Draw(spriteBatch); //bakgrund
+            bar.Draw(spriteBatch); //bar
+            ball1.Draw(spriteBatch);
+
             rödFågel.Draw(spriteBatch);
             foreach (ProjektilMarkering p in markeringar)
             {

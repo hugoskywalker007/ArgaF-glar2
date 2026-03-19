@@ -22,13 +22,6 @@ namespace Arga_Fåglar_2
         {
         }
 
-        ////update
-        //public virtual void Update(GameWindow window, GameTime gameTime)
-        //{
-        //    vector.X += speed.X;
-        //    vector.Y += speed.Y;
-        //}
-
         //metoder
         public virtual float BeräknaNästaPosition(int val, float speedX, float speedY, GameTime gameTime) //använder fysik formler för att beräkna ut nästa position i X och Y led
         {
