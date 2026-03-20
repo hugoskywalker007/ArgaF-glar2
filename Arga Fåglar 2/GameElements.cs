@@ -17,8 +17,8 @@ namespace Arga_Fåglar_2
         static List<ProjektilMarkering> markeringar;
         static Background bakgrund;
         static Bar bar;
-        static BarBall ball1;
-        static BarBall ball2;
+        static BarBallForce ballForce;
+        static BarBallAngle ballAngle;
 
         //olika gamestates
         public enum State { Menu, Run, HighScore, Quit }; //de olika statesen i spelet
@@ -37,20 +37,18 @@ namespace Arga_Fåglar_2
         public static void LoadContet(ContentManager content, GameWindow window)
         {
             //fåglar
-            rödFågel = new RödFågel(content.Load<Texture2D>("images/fåglar/röd_fågel"), 100, 1000, 50, -50);
+            rödFågel = new RödFågel(content.Load<Texture2D>("images/fåglar/röd_fågel"), 100, 600, 50, -50);
 
             //markeringar
             markeringar = new List<ProjektilMarkering>();
-            Texture2D tmpSprite = content.Load<Texture2D>("images/vfx/markering");
-            ProjektilMarkering temp = new ProjektilMarkering(tmpSprite, rödFågel.X, rödFågel.Y);
-            markeringar.Add(temp);
-
+            
             //bakgrund
             bakgrund = new Background(content.Load<Texture2D>("images/background/background"), 0, 0);
 
             //bar
             bar = new Bar(content.Load<Texture2D>("images/bar/bar"), 0, 880); //nere i vänstra hörnet
-            ball1 = new BarBall(content.Load<Texture2D>("images/bar/bar_ball"), 6, 1036, 10, 0);
+            ballForce = new BarBallForce(content.Load<Texture2D>("images/bar/bar_ball"), 6, 1036, 1, 0);
+            ballAngle = new BarBallAngle(content.Load<Texture2D>("images/bar/bar_ball"), 6, 936, 1, 0);
 
             //menu
             menu = new Menu((int)State.Menu);
@@ -76,9 +74,18 @@ namespace Arga_Fåglar_2
         {
             bakgrund.Update(window, gameTime); //bakgrund
             bar.Update(window, gameTime); //bar
-            ball1.UpdateBar(window, gameTime);
+            ballForce.UpdateBar(window, gameTime);
+            ballAngle.UpdateBar(window, gameTime);
 
             rödFågel.Update(window, gameTime);
+
+            if (gameTime.TotalGameTime.Milliseconds % 200 == 0)
+            {
+                Texture2D tmpSprite = content.Load<Texture2D>("images/vfx/markering");
+                ProjektilMarkering temp = new ProjektilMarkering(tmpSprite, rödFågel.X + 12, rödFågel.Y + rödFågel.Height / 2);
+                markeringar.Add(temp);
+            }
+            
             foreach (ProjektilMarkering p in markeringar.ToList())
             {
                 p.Update(window, gameTime);
@@ -91,9 +98,11 @@ namespace Arga_Fåglar_2
         {
             bakgrund.Draw(spriteBatch); //bakgrund
             bar.Draw(spriteBatch); //bar
-            ball1.Draw(spriteBatch);
+            ballForce.Draw(spriteBatch);
+            ballAngle.Draw(spriteBatch);
 
             rödFågel.Draw(spriteBatch);
+            
             foreach (ProjektilMarkering p in markeringar)
             {
                 p.Draw(spriteBatch);

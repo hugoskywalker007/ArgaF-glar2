@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +16,8 @@ namespace Arga_Fåglar_2
         {
 
         }
-
+        
         //update
-        public void UpdateBar(GameWindow window, GameTime gameTime)
-        {
-            if (vector.X <= 0)
-            {
-                vector.X += speed.X;
-            }
-            else if (vector.X >= 194)
-            {
-                vector.X -= speed.X;
-            }
-        }
+        
     }
 }
