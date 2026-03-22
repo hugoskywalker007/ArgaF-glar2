@@ -36,7 +36,7 @@ namespace Arga_Fåglar_2
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            GameElements.LoadContet(Content, Window);
+            GameElements.LoadContent(Content, Window);
         }
 
         protected override void Update(GameTime gameTime)

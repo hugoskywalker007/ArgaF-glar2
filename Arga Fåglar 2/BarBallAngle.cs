@@ -11,6 +11,9 @@ namespace Arga_Fåglar_2
 {
     internal class BarBallAngle : BarBall
     {
+        //medlemsvariabler
+        
+
         //konstruktor
         public BarBallAngle(Texture2D texture, float X, float Y, float speedX, float speedY) : base(texture, X, Y, speedX, speedY)
         {
@@ -25,6 +28,7 @@ namespace Arga_Fåglar_2
             if (keyboardState.IsKeyDown(Keys.E))
             {
                 speed.X = 0;
+                Ready = true;
             }
             else
             {
@@ -36,5 +40,8 @@ namespace Arga_Fåglar_2
                 }
             }
         }
+
+        
+
     }
 }

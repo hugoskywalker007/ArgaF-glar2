@@ -22,6 +22,24 @@ namespace Arga_Fåglar_2
         {
         }
 
+        //update
+        public void UpdateFågel(GameWindow window, GameTime gameTime)
+        {
+            if (vector.X > window.ClientBounds.Width - texture.Width || vector.Y > window.ClientBounds.Height)
+            {
+                IsAlive = false;
+            }
+            else
+            {
+                float tid = (float)gameTime.ElapsedGameTime.TotalSeconds; //tid
+
+                vector.X += BeräknaNästaPosition(1, speed.X, speed.Y, gameTime); //position X
+                vector.Y += BeräknaNästaPosition(2, speed.X, speed.Y, gameTime); //position Y
+
+                speed.Y += 4f * tid; //gravitation
+            }
+        }
+
         //metoder
         public virtual float BeräknaNästaPosition(int val, float speedX, float speedY, GameTime gameTime) //använder fysik formler för att beräkna ut nästa position i X och Y led
         {

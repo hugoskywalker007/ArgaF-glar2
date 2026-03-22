@@ -22,23 +22,14 @@ namespace Arga_Fåglar_2
         }
 
         //draw
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(texture, vector, Color.White);
-        }
+        //public override void Draw(SpriteBatch spriteBatch)
+        //{
+        //    spriteBatch.Draw(texture, vector, Color.White);
+        //}
 
         //metoder
         
 
-        //update
-        public void Update(GameWindow window, GameTime gameTime)
-        {
-            float tid = (float)gameTime.ElapsedGameTime.TotalSeconds; //tid
-
-            vector.X += BeräknaNästaPosition(1, speed.X, speed.Y, gameTime); //position X
-            vector.Y += BeräknaNästaPosition(2, speed.X, speed.Y, gameTime); //position Y
-
-            speed.Y += 4f * tid; //gravitation
-        }
+        
     }
 }

@@ -7,7 +7,7 @@ namespace Arga_Fåglar_2
     internal class MovingObject : GameObject //ärver från MovingObject
     {
         //medlemsvariabler
-        protected Vector2 speed; //ett rörligt objekt behöver en hastighet i formen av en vektor i dimensionerna X och Y (upp ner och höger vänster)
+        public Vector2 speed; //ett rörligt objekt behöver en hastighet i formen av en vektor i dimensionerna X och Y (upp ner och höger vänster)
 
         //konstruktor
         /// <summary>
@@ -23,5 +23,9 @@ namespace Arga_Fåglar_2
             this.speed.X = speedX;
             this.speed.Y = speedY;
         }
+
+        //egenskaper
+        public float speedX { get { return speedX; } set { speedX = value; } }
+        public float speedY { get { return speedY; } set { speedX = value; } }
     }
 }

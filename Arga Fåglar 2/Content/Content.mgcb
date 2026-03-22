@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin H:/sprites/bar_ball.png
+#begin ../../../../../../Pictures/bar_ball.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,9 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:H:/sprites/bar_ball.png;images/bar/bar_ball.png
+/build:../../../../../../Pictures/bar_ball.png;images/bar/bar_ball.png
 
-#begin H:/sprites/bar.png
+#begin ../../../../../../Pictures/bar.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,7 +35,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:H:/sprites/bar.png;images/bar/bar.png
+/build:../../../../../../Pictures/bar.png;images/bar/bar.png
 
 #begin images/background/background.png
 /importer:TextureImporter

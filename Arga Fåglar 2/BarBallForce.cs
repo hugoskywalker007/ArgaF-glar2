@@ -25,6 +25,7 @@ namespace Arga_Fåglar_2
             if (keyboardState.IsKeyDown(Keys.Q))
             {
                 speed.X = 0;
+                Ready = true;
             }
             else
             {

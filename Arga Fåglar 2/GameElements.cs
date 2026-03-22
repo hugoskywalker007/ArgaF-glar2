@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,27 @@ namespace Arga_Fåglar_2
     internal class GameElements
     {
         //medlemsvariabler
+        static List<Fågel> fåglar;
         static RödFågel rödFågel;
+        static Texture2D rödFågelSprite;
+        static BlåFågel blåFågel;
+        static Texture2D blåFågelSprite;
+        static GulFågel gulFågel;
+        static Texture2D gulFågelSprite;
+        static SvartFågel svartFågel;
+        static Texture2D svartFågelSprite;
         static List<ProjektilMarkering> markeringar;
+        static Texture2D markeringSprite;
         static Background bakgrund;
         static Bar bar;
         static BarBallForce ballForce;
         static BarBallAngle ballAngle;
+        static Random random;
+        static float force;
+        static float angle;
+        static bool hasShot = false;
+        static int ballSpeed = 1;
+
 
         //olika gamestates
         public enum State { Menu, Run, HighScore, Quit }; //de olika statesen i spelet
@@ -27,28 +43,35 @@ namespace Arga_Fåglar_2
         //initialize
         public static void Initialize()
         {
-
+            fåglar = new List<Fågel>();
+            random = new Random();
         }
 
         //menu
         static Menu menu;
 
         //load
-        public static void LoadContet(ContentManager content, GameWindow window)
+        public static void LoadContent(ContentManager content, GameWindow window)
         {
             //fåglar
-            rödFågel = new RödFågel(content.Load<Texture2D>("images/fåglar/röd_fågel"), 100, 600, 50, -50);
+            rödFågelSprite = content.Load<Texture2D>("images/fåglar/röd_fågel");
+            blåFågelSprite = content.Load<Texture2D>("images/fåglar/blå_fågel");
+            gulFågelSprite = content.Load<Texture2D>("images/fåglar/gul_fågel");
+            svartFågelSprite = content.Load<Texture2D>("images/fåglar/svart_fågel");
 
             //markeringar
             markeringar = new List<ProjektilMarkering>();
+            markeringSprite = content.Load<Texture2D>("images/vfx/markering");
             
             //bakgrund
             bakgrund = new Background(content.Load<Texture2D>("images/background/background"), 0, 0);
 
             //bar
             bar = new Bar(content.Load<Texture2D>("images/bar/bar"), 0, 880); //nere i vänstra hörnet
-            ballForce = new BarBallForce(content.Load<Texture2D>("images/bar/bar_ball"), 6, 1036, 1, 0);
-            ballAngle = new BarBallAngle(content.Load<Texture2D>("images/bar/bar_ball"), 6, 936, 1, 0);
+            int x1 = random.Next(6, 157);
+            int x2 = random.Next(6, 157);
+            ballForce = new BarBallForce(content.Load<Texture2D>("images/bar/bar_ball"), x1, 1036, ballSpeed, 0);
+            ballAngle = new BarBallAngle(content.Load<Texture2D>("images/bar/bar_ball"), x2, 936, ballSpeed, 0);
 
             //menu
             menu = new Menu((int)State.Menu);
@@ -77,19 +100,70 @@ namespace Arga_Fåglar_2
             ballForce.UpdateBar(window, gameTime);
             ballAngle.UpdateBar(window, gameTime);
 
-            rödFågel.Update(window, gameTime);
-
-            if (gameTime.TotalGameTime.Milliseconds % 200 == 0)
+            if (hasShot == false && ballForce.Ready == true && ballAngle.Ready == true)
             {
-                Texture2D tmpSprite = content.Load<Texture2D>("images/vfx/markering");
-                ProjektilMarkering temp = new ProjektilMarkering(tmpSprite, rödFågel.X + 12, rödFågel.Y + rödFågel.Height / 2);
-                markeringar.Add(temp);
+                hasShot = true;
+                ballForce.Ready = false;
+                ballAngle.Ready = false;
+                force = 50f * (156f / ballForce.X);
+                angle = (float)((Math.PI / 2) * (ballAngle.X / 156));
+
+                float tmpSpeedX = (float)(force * Math.Cos(angle));
+                float tmpSpeedY = (float)(force * Math.Sin(angle));
+                int nästaFågel = random.Next(1, 5);
+                switch(nästaFågel)
+                {
+                    case 1:
+                        rödFågel = new RödFågel(rödFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                        fåglar.Add(rödFågel);
+                        break;
+                    case 2:
+                        blåFågel = new BlåFågel(blåFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                        fåglar.Add(blåFågel);
+                        break;
+                    case 3:
+                        gulFågel = new GulFågel(gulFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                        fåglar.Add(gulFågel);
+                        break;
+                    case 4:
+                        svartFågel = new SvartFågel(svartFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                        fåglar.Add(svartFågel);
+                        break;
+                } 
             }
+
             
+            foreach (Fågel f in fåglar.ToList())
+            {
+                f.UpdateFågel(window, gameTime);
+                if (f.IsAlive == false)
+                {
+                    hasShot = false;
+                    fåglar.Remove(f);
+                    markeringar.Clear();
+                    ballForce.Ready = false;
+                    ballAngle.Ready = false;
+                    ballForce.speed.X = ballSpeed;
+                    ballAngle.speed.X = ballSpeed;
+                }
+
+                if (hasShot == true && gameTime.TotalGameTime.Milliseconds % 200 == 0)
+                {
+                    ProjektilMarkering temp = new ProjektilMarkering(markeringSprite, f.X + 12, f.Y + f.Height / 2);
+                    markeringar.Add(temp);
+                }
+            }
+
+            
+
             foreach (ProjektilMarkering p in markeringar.ToList())
             {
                 p.Update(window, gameTime);
             }
+
+            
+
+
             return State.Run;
         }
 
@@ -101,9 +175,13 @@ namespace Arga_Fåglar_2
             ballForce.Draw(spriteBatch);
             ballAngle.Draw(spriteBatch);
 
-            rödFågel.Draw(spriteBatch);
+            foreach (Fågel f in fåglar.ToList())
+            {
+                f.Draw(spriteBatch);
+            }
             
-            foreach (ProjektilMarkering p in markeringar)
+            
+            foreach (ProjektilMarkering p in markeringar.ToList())
             {
                 p.Draw(spriteBatch);
             }
