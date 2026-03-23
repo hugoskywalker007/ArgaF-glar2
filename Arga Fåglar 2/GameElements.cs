@@ -36,11 +36,11 @@ namespace Arga_Fåglar_2
         static Slangbella slangbella50;
         static Slangbella slangbella75;
         static Slangbella slangbella100;
-        //static Texture2D slangbella0;
-        //static Texture2D slangbella25;
-        //static Texture2D slangbella50;
-        //static Texture2D slangbella75;
-        //static Texture2D slangbella100;
+        static List<Grisar> grisar;
+        static Gris gris;
+        static Texture2D grisSprite;
+        static KungGris kungGris;
+        static Texture2D kungGrisSprite;
         static Random random;
         static float force;
         static float angle;
@@ -56,6 +56,7 @@ namespace Arga_Fåglar_2
         public static void Initialize()
         {
             fåglar = new List<Fågel>();
+            grisar = new List<Grisar>();
             slangbellor = new List<Slangbella>();
             random = new Random();
         }
@@ -71,6 +72,10 @@ namespace Arga_Fåglar_2
             blåFågelSprite = content.Load<Texture2D>("images/fåglar/blå_fågel");
             gulFågelSprite = content.Load<Texture2D>("images/fåglar/gul_fågel");
             svartFågelSprite = content.Load<Texture2D>("images/fåglar/svart_fågel");
+
+            //grisar
+            grisSprite = content.Load<Texture2D>("images/grisar/gris");
+            kungGrisSprite = content.Load<Texture2D>("images/grisar/gris_kung");
 
             //markeringar
             markeringar = new List<ProjektilMarkering>();
@@ -133,7 +138,6 @@ namespace Arga_Fåglar_2
 
                 float tmpSpeedX = (float)(force * Math.Cos(angle));
                 float tmpSpeedY = (float)(force * Math.Sin(angle));
-                int nästaFågel = random.Next(1, 5);
 
                 if (force > 0 && force <= 65)
                 {
@@ -152,6 +156,7 @@ namespace Arga_Fåglar_2
                     slangbellor.Add(slangbella100);
                 }
 
+                    int nästaFågel = random.Next(1, 5);
                     switch (nästaFågel)
                     {
                         case 1:
