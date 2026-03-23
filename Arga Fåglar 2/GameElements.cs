@@ -41,6 +41,16 @@ namespace Arga_Fåglar_2
         static Texture2D grisSprite;
         static KungGris kungGris;
         static Texture2D kungGrisSprite;
+        static List<Planka> plankor;
+        static TräPlanka träPlanka;
+        static Texture2D träPlankaLodSprite;
+        static Texture2D träPlankaVågSprite;
+        static IsPlanka isPlanka;
+        static Texture2D isPlankaLodSprite;
+        static Texture2D isPlankaVågSprite;
+        static MetalPlanka metalPlanka;
+        static Texture2D metalPlankaLodSprite;
+        static Texture2D metalPlankaVågSprite;
         static Random random;
         static float force;
         static float angle;
@@ -57,6 +67,7 @@ namespace Arga_Fåglar_2
         {
             fåglar = new List<Fågel>();
             grisar = new List<Grisar>();
+            plankor = new List<Planka>();
             slangbellor = new List<Slangbella>();
             random = new Random();
         }
@@ -76,6 +87,19 @@ namespace Arga_Fåglar_2
             //grisar
             grisSprite = content.Load<Texture2D>("images/grisar/gris");
             kungGrisSprite = content.Load<Texture2D>("images/grisar/gris_kung");
+
+            //plankor
+            träPlankaLodSprite = content.Load<Texture2D>("images/planka/trä_lod");
+            träPlankaVågSprite = content.Load<Texture2D>("images/planka/trä_våg");
+            isPlankaLodSprite = content.Load<Texture2D>("images/planka/is_lod");
+            isPlankaVågSprite = content.Load<Texture2D>("images/planka/is_våg");
+            metalPlankaLodSprite = content.Load<Texture2D>("images/planka/metal_lod");
+            metalPlankaVågSprite = content.Load<Texture2D>("images/planka/metal_våg");
+
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1100, 512));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1036, 512));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 1100, 448));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1036, 384));
 
             //markeringar
             markeringar = new List<ProjektilMarkering>();
@@ -126,7 +150,6 @@ namespace Arga_Fåglar_2
             bar.Update(window, gameTime); //bar
             ballForce.UpdateBar(window, gameTime);
             ballAngle.UpdateBar(window, gameTime);
-            
 
             if (hasShot == false && ballForce.Ready == true && ballAngle.Ready == true)
             {
@@ -230,15 +253,24 @@ namespace Arga_Fåglar_2
                 f.Draw(spriteBatch);
             }
             
-            
             foreach (ProjektilMarkering p in markeringar.ToList())
             {
                 p.Draw(spriteBatch);
             }
 
+            foreach (Grisar g in  grisar.ToList())
+            {
+                g.Draw(spriteBatch);
+            }
+
             foreach (Slangbella s in slangbellor.ToList())
             {
                 s.Draw(spriteBatch);
+            }
+
+            foreach (Planka p in plankor.ToList())
+            {
+                p.Draw(spriteBatch);
             }
         }
 
