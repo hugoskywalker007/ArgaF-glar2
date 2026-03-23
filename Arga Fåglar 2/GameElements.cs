@@ -29,6 +29,18 @@ namespace Arga_Fåglar_2
         static Bar bar;
         static BarBallForce ballForce;
         static BarBallAngle ballAngle;
+        static Slangbella slangbella;
+        static List<Slangbella> slangbellor;
+        static Slangbella slangbella0;
+        static Slangbella slangbella25;
+        static Slangbella slangbella50;
+        static Slangbella slangbella75;
+        static Slangbella slangbella100;
+        //static Texture2D slangbella0;
+        //static Texture2D slangbella25;
+        //static Texture2D slangbella50;
+        //static Texture2D slangbella75;
+        //static Texture2D slangbella100;
         static Random random;
         static float force;
         static float angle;
@@ -44,6 +56,7 @@ namespace Arga_Fåglar_2
         public static void Initialize()
         {
             fåglar = new List<Fågel>();
+            slangbellor = new List<Slangbella>();
             random = new Random();
         }
 
@@ -73,6 +86,15 @@ namespace Arga_Fåglar_2
             ballForce = new BarBallForce(content.Load<Texture2D>("images/bar/bar_ball"), x1, 1036, ballSpeed, 0);
             ballAngle = new BarBallAngle(content.Load<Texture2D>("images/bar/bar_ball"), x2, 936, ballSpeed, 0);
 
+            //slangbella
+            slangbella0 = new Slangbella(content.Load<Texture2D>("images/slangbella/slangbella_0%"), 38, 605);
+            slangbella25 = new Slangbella(content.Load<Texture2D>("images/slangbella/slangbella_25%"), 38, 605);
+            slangbella50 = new Slangbella(content.Load<Texture2D>("images/slangbella/slangbella_50%"), 38, 605);
+            slangbella75 = new Slangbella(content.Load<Texture2D>("images/slangbella/slangbella_75%"), 38, 605);
+            slangbella100 = new Slangbella(content.Load<Texture2D>("images/slangbella/slangbella_100%"), 38, 605);
+
+            slangbellor.Add(slangbella0);
+
             //menu
             menu = new Menu((int)State.Menu);
             menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)State.Run);
@@ -99,6 +121,7 @@ namespace Arga_Fåglar_2
             bar.Update(window, gameTime); //bar
             ballForce.UpdateBar(window, gameTime);
             ballAngle.UpdateBar(window, gameTime);
+            
 
             if (hasShot == false && ballForce.Ready == true && ballAngle.Ready == true)
             {
@@ -111,25 +134,43 @@ namespace Arga_Fåglar_2
                 float tmpSpeedX = (float)(force * Math.Cos(angle));
                 float tmpSpeedY = (float)(force * Math.Sin(angle));
                 int nästaFågel = random.Next(1, 5);
-                switch(nästaFågel)
+
+                if (force > 0 && force <= 65)
                 {
-                    case 1:
-                        rödFågel = new RödFågel(rödFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
-                        fåglar.Add(rödFågel);
-                        break;
-                    case 2:
-                        blåFågel = new BlåFågel(blåFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
-                        fåglar.Add(blåFågel);
-                        break;
-                    case 3:
-                        gulFågel = new GulFågel(gulFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
-                        fåglar.Add(gulFågel);
-                        break;
-                    case 4:
-                        svartFågel = new SvartFågel(svartFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
-                        fåglar.Add(svartFågel);
-                        break;
-                } 
+                    slangbellor.Add(slangbella25);
+                }
+                else if (force > 65 && force <= 104)
+                {
+                    slangbellor.Add(slangbella50);
+                }
+                else if (force > 104 && force <= 156)
+                {
+                    slangbellor.Add(slangbella75);
+                }
+                else if (force > 156)
+                {
+                    slangbellor.Add(slangbella100);
+                }
+
+                    switch (nästaFågel)
+                    {
+                        case 1:
+                            rödFågel = new RödFågel(rödFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                            fåglar.Add(rödFågel);
+                            break;
+                        case 2:
+                            blåFågel = new BlåFågel(blåFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                            fåglar.Add(blåFågel);
+                            break;
+                        case 3:
+                            gulFågel = new GulFågel(gulFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                            fåglar.Add(gulFågel);
+                            break;
+                        case 4:
+                            svartFågel = new SvartFågel(svartFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                            fåglar.Add(svartFågel);
+                            break;
+                    } 
             }
 
             
@@ -145,6 +186,10 @@ namespace Arga_Fåglar_2
                     ballAngle.Ready = false;
                     ballForce.speed.X = ballSpeed;
                     ballAngle.speed.X = ballSpeed;
+                    slangbellor.Remove(slangbella25);
+                    slangbellor.Remove(slangbella50);
+                    slangbellor.Remove(slangbella75);
+                    slangbellor.Remove(slangbella100);
                 }
 
                 if (hasShot == true && gameTime.TotalGameTime.Milliseconds % 200 == 0)
@@ -184,6 +229,11 @@ namespace Arga_Fåglar_2
             foreach (ProjektilMarkering p in markeringar.ToList())
             {
                 p.Draw(spriteBatch);
+            }
+
+            foreach (Slangbella s in slangbellor.ToList())
+            {
+                s.Draw(spriteBatch);
             }
         }
 

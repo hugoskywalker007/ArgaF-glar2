@@ -29,6 +29,22 @@ namespace Arga_Fåglar_2
             {
                 IsAlive = false;
             }
+            else if (vector.X > 590 - texture.Width && vector.X < 777 - texture.Width && vector.Y > 942 - texture.Height)
+            {
+                IsAlive = false;
+            }
+            else if (vector.X > 777 - texture.Width && vector.X < 1090 - texture.Width && vector.Y > 808 - texture.Height)
+            {
+                IsAlive = false;
+            }
+            else if (vector.X > 1090 - texture.Width && vector.X < 1392 - texture.Width && vector.Y > 508 - texture.Height)
+            {
+                IsAlive = false;
+            }
+            else if (vector.X > 1642 - texture.Width && vector.X < 1920 - texture.Width && vector.Y > 638 - texture.Height)
+            {
+                IsAlive = false;
+            }
             else
             {
                 float tid = (float)gameTime.ElapsedGameTime.TotalSeconds; //tid
