@@ -8,7 +8,7 @@ namespace Arga_Fåglar_2
     internal class PhysicalObject : MovingObject //ärver från MovingObject
     {
         //medlemsvariabler
-        bool isAlive = true; //måste veta om ett objekt lever eller ej (eller ska försvinna)
+        
 
         //konstruktor
         /// <summary>
@@ -26,14 +26,9 @@ namespace Arga_Fåglar_2
 
         //metoder
 
-        public bool CheckCollision(PhysicalObject other) //kolla kollsion mellan två objekt 
-        {
-            Rectangle myRect = new Rectangle(Convert.ToInt32(X), Convert.ToInt32(Y), Convert.ToInt32(Width), Convert.ToInt32(Height)); //skapar en rektangle med platsen och dimensionerna av objektet som matas in
-            Rectangle otherRect = new Rectangle(Convert.ToInt32(other.X), Convert.ToInt32(other.Y), Convert.ToInt32(other.Width), Convert.ToInt32(other.Height)); //skapar en rektangle med platsen och dimensionerna av det andra objektet som matas in
-            return myRect.Intersects(otherRect); //kollar om objeketen snuddar eller överlappar varandra och returnerar en boolisk variabel
-        }
+        
 
         //egenskaper
-        public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
+        
     }
 }

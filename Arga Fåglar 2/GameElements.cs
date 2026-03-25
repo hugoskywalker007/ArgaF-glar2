@@ -96,10 +96,43 @@ namespace Arga_Fåglar_2
             metalPlankaLodSprite = content.Load<Texture2D>("images/planka/metal_lod");
             metalPlankaVågSprite = content.Load<Texture2D>("images/planka/metal_våg");
 
-            plankor.Add(new TräPlanka(träPlankaVågSprite, 1100, 512));
-            plankor.Add(new TräPlanka(träPlankaVågSprite, 1036, 512));
-            plankor.Add(new IsPlanka(isPlankaLodSprite, 1100, 448));
-            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1036, 384));
+            //map
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1080, 495));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1144, 495));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1208, 495));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1272, 495));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1336, 495));
+            plankor.Add(new TräPlanka(träPlankaLodSprite, 1080, 431));
+            plankor.Add(new TräPlanka(träPlankaLodSprite, 1080, 367));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1080, 350));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1144, 350));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1208, 350));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1272, 350));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1336, 350));
+            plankor.Add(new TräPlanka(träPlankaLodSprite, 1383, 431));
+            plankor.Add(new TräPlanka(träPlankaLodSprite, 1383, 367));
+            grisar.Add(new Gris(grisSprite, 1120, 450, 0, 0));
+            grisar.Add(new Gris(grisSprite, 1200, 450, 0, 0));
+            grisar.Add(new Gris(grisSprite, 1280, 450, 0, 0));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1080, 430));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1144, 430));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1208, 430));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1272, 430));
+            plankor.Add(new TräPlanka(träPlankaVågSprite, 1336, 430));
+            grisar.Add(new Gris(grisSprite, 1120, 383, 0, 0));
+            grisar.Add(new Gris(grisSprite, 1200, 383, 0, 0));
+            grisar.Add(new Gris(grisSprite, 1280, 383, 0, 0));
+            grisar.Add(new Gris(grisSprite, 1120, 303, 0, 0));
+            grisar.Add(new Gris(grisSprite, 1200, 303, 0, 0));
+            grisar.Add(new Gris(grisSprite, 1280, 303, 0, 0));
+
+            plankor.Add(new IsPlanka(isPlankaVågSprite, 812, 800));
+            plankor.Add(new IsPlanka(isPlankaVågSprite, 876, 800));
+            plankor.Add(new IsPlanka(isPlankaVågSprite, 940, 800));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 812, 736));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 812, 672));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 987, 736));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 987, 672));
 
             //markeringar
             markeringar = new List<ProjektilMarkering>();
@@ -227,14 +260,30 @@ namespace Arga_Fåglar_2
                 }
             }
 
-            
-
             foreach (ProjektilMarkering p in markeringar.ToList())
             {
                 p.Update(window, gameTime);
             }
 
-            
+            foreach (Fågel f in fåglar.ToList())
+            {
+                foreach (Gris g in grisar.ToList())
+                {
+                    if (g.CheckCollision(f))
+                    {
+                        g.IsAlive = false;
+                        grisar.Remove(g);
+                    }
+                }
+                foreach (Planka p in plankor.ToList())
+                {
+                    if (p.CheckCollision(f))
+                    {
+                        p.IsAlive = false;
+                        plankor.Remove(p);
+                    }
+                }
+            }
 
 
             return State.Run;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Arga_Fåglar_2
 {
@@ -9,6 +10,7 @@ namespace Arga_Fåglar_2
         //medlemsvariabler
         protected Texture2D texture; //objekt behöver ett utseende
         protected Vector2 vector; //objekt behöver en position (X, Y)
+        bool isAlive = true; //måste veta om ett objekt lever eller ej (eller ska försvinna)
 
         //konstruktor
         /// <summary>
@@ -41,5 +43,14 @@ namespace Arga_Fåglar_2
         public float Y { get { return this.vector.Y; } }
         public float Width { get { return this.texture.Width; } }
         public float Height { get { return this.texture.Height; } }
+        public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
+
+        //metoder
+        public bool CheckCollision(PhysicalObject other) //kolla kollsion mellan två objekt 
+        {
+            Rectangle myRect = new Rectangle(Convert.ToInt32(X), Convert.ToInt32(Y), Convert.ToInt32(Width), Convert.ToInt32(Height)); //skapar en rektangle med platsen och dimensionerna av objektet som matas in
+            Rectangle otherRect = new Rectangle(Convert.ToInt32(other.X), Convert.ToInt32(other.Y), Convert.ToInt32(other.Width), Convert.ToInt32(other.Height)); //skapar en rektangle med platsen och dimensionerna av det andra objektet som matas in
+            return myRect.Intersects(otherRect); //kollar om objeketen snuddar eller överlappar varandra och returnerar en boolisk variabel
+        }
     }
 }
