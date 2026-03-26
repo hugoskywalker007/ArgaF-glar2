@@ -133,6 +133,62 @@ namespace Arga_Fåglar_2
             plankor.Add(new IsPlanka(isPlankaLodSprite, 812, 672));
             plankor.Add(new IsPlanka(isPlankaLodSprite, 987, 736));
             plankor.Add(new IsPlanka(isPlankaLodSprite, 987, 672));
+            plankor.Add(new IsPlanka(isPlankaVågSprite, 812, 655));
+            plankor.Add(new IsPlanka(isPlankaVågSprite, 876, 655));
+            plankor.Add(new IsPlanka(isPlankaVågSprite, 940, 655));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 876, 672));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 876, 736));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 893, 672));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 893, 736));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 910, 672));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 910, 736));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 927, 672));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 927, 736));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 944, 672));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 961, 672));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 978, 672));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 859, 672));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 842, 672));
+            plankor.Add(new IsPlanka(isPlankaLodSprite, 825, 672));
+            grisar.Add(new Gris(grisSprite, 822, 750, 0, 0));
+            grisar.Add(new Gris(grisSprite, 935, 750, 0, 0));
+            grisar.Add(new Gris(grisSprite, 895, 608, 0, 0));
+            grisar.Add(new Gris(grisSprite, 863, 608, 0, 0));
+            grisar.Add(new Gris(grisSprite, 879, 580, 0, 0));
+
+            grisar.Add(new Gris(grisSprite, 645, 888, 0, 0));
+            grisar.Add(new Gris(grisSprite, 613, 888, 0, 0));
+            grisar.Add(new Gris(grisSprite, 629, 860, 0, 0));
+
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1664, 626));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1728, 626));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1792, 626));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1856, 626));
+            plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1664, 562));
+            plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1664, 498));
+            //plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1664, 434));
+            plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1664, 370));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1664, 353));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1728, 353));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1792, 353));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1856, 353));
+            plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1903, 562));
+            plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1903, 498));
+            plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1903, 434));
+            plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1903, 370));
+            plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1784, 562));
+            plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1784, 498));
+            plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1784, 434));
+            plankor.Add(new MetalPlanka(metalPlankaLodSprite, 1784, 370));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1664, 490));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1728, 490));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1792, 490));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1856, 490));
+            plankor.Add(new MetalPlanka(metalPlankaVågSprite, 1600, 490));
+            grisar.Add(new KungGris(kungGrisSprite, 1700, 580, 0, 0));
+            grisar.Add(new KungGris(kungGrisSprite, 1820, 580, 0, 0));
+            grisar.Add(new Gris(grisSprite, 1700, 443, 0, 0));
+            grisar.Add(new Gris(grisSprite, 1820, 443, 0, 0));
 
             //markeringar
             markeringar = new List<ProjektilMarkering>();
@@ -267,7 +323,7 @@ namespace Arga_Fåglar_2
 
             foreach (Fågel f in fåglar.ToList())
             {
-                foreach (Gris g in grisar.ToList())
+                foreach (Grisar g in grisar.ToList())
                 {
                     if (g.CheckCollision(f))
                     {
