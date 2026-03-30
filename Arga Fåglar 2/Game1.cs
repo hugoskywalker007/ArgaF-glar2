@@ -25,6 +25,7 @@ namespace Arga_Fåglar_2
         }
 
         protected override void Initialize()
+
         {
             GameElements.currentState = GameElements.State.Menu;
             GameElements.Initialize();

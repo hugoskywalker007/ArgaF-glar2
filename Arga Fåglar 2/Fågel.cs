@@ -7,6 +7,7 @@ namespace Arga_Fåglar_2
     internal abstract class Fågel : PhysicalObject
     {
         //medlemsvariabler
+        int hitPoints;
 
         //konstruktor
         /// <summary>
@@ -18,9 +19,14 @@ namespace Arga_Fåglar_2
         /// <param name="speedX"></param>
         /// <param name="speedY"></param>
         /// <param name="vinkel"></param>
-        public Fågel(Texture2D texture, float X, float Y, float speedX, float speedY) : base(texture, X, Y, speedX, speedY)
+        public Fågel(Texture2D texture, float X, float Y, float speedX, float speedY, int hitPoints) : base(texture, X, Y, speedX, speedY)
         {
+            this.hitPoints = hitPoints;
         }
+
+        //egenskaper
+        public int HitPoints { get { return this.hitPoints; } set { this.hitPoints = value; } } 
+        
 
         //update
         public void UpdateFågel(GameWindow window, GameTime gameTime)
@@ -52,12 +58,12 @@ namespace Arga_Fåglar_2
                 vector.X += BeräknaNästaPosition(1, speed.X, speed.Y, gameTime); //position X
                 vector.Y += BeräknaNästaPosition(2, speed.X, speed.Y, gameTime); //position Y
 
-                speed.Y += 4f * tid; //gravitation
+                speed.Y += 8f * tid; //gravitation
             }
         }
 
         //metoder
-        public virtual float BeräknaNästaPosition(int val, float speedX, float speedY, GameTime gameTime) //använder fysik formler för att beräkna ut nästa position i X och Y led
+        public virtual float BeräknaNästaPosition(int val, float speedX, float speedY, GameTime gameTime) //beräkna vector X och Y
         {
             float tid = (float)gameTime.ElapsedGameTime.TotalSeconds;
             switch (val) //1 är för position X och 2 för position Y

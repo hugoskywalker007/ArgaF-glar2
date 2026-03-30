@@ -11,20 +11,20 @@ namespace Arga_Fåglar_2
     internal class SvartFågel : Fågel
     {
         //konstruktor
-        public SvartFågel(Texture2D texture, float X, float Y, float speedX, float speedY) : base(texture, X, Y, speedX, speedY)
+        public SvartFågel(Texture2D texture, float X, float Y, float speedX, float speedY, int hitPoints) : base(texture, X, Y, speedX, speedY, hitPoints)
         {
 
         }
 
         //update
-        public void UpdateFågel(GameWindow window, GameTime gameTime)
-        {
-            float tid = (float)gameTime.ElapsedGameTime.TotalSeconds; //tid
+        //public void UpdateFågel(GameWindow window, GameTime gameTime)
+        //{
+        //    float tid = (float)gameTime.ElapsedGameTime.TotalSeconds; //tid
 
-            vector.X += BeräknaNästaPosition(1, speed.X, speed.Y, gameTime); //position X
-            vector.Y += BeräknaNästaPosition(2, speed.X, speed.Y, gameTime); //position Y
+        //    vector.X += BeräknaNästaPosition(1, speed.X, speed.Y, gameTime); //position X
+        //    vector.Y += BeräknaNästaPosition(2, speed.X, speed.Y, gameTime); //position Y
 
-            speed.Y += 4f * tid; //gravitation
-        }
+        //    speed.Y += 4f * tid; //gravitation
+        //}
     }
 }

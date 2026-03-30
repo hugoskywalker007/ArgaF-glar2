@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,11 +52,14 @@ namespace Arga_Fåglar_2
         static MetalPlanka metalPlanka;
         static Texture2D metalPlankaLodSprite;
         static Texture2D metalPlankaVågSprite;
+        static PrintText printText;
         static Random random;
         static float force;
         static float angle;
         static bool hasShot = false;
         static int ballSpeed = 1;
+        static double poäng = 0;
+        static int antalFåglarSkjutna = 0;
 
 
         //olika gamestates
@@ -218,6 +222,9 @@ namespace Arga_Fåglar_2
             menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)State.Run);
             menu.AddItem(content.Load<Texture2D>("images/menu/highscore"), (int)State.HighScore);
             menu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)State.Quit);
+
+            //UI
+            printText = new PrintText(content.Load<SpriteFont>("myFont"));
         }
 
         //menu update
@@ -267,46 +274,39 @@ namespace Arga_Fåglar_2
                 {
                     slangbellor.Add(slangbella100);
                 }
-
+                    antalFåglarSkjutna++;
                     int nästaFågel = random.Next(1, 5);
                     switch (nästaFågel)
                     {
                         case 1:
-                            rödFågel = new RödFågel(rödFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                            rödFågel = new RödFågel(rödFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY, 5);
                             fåglar.Add(rödFågel);
                             break;
                         case 2:
-                            blåFågel = new BlåFågel(blåFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                            blåFågel = new BlåFågel(blåFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY, 10);
                             fåglar.Add(blåFågel);
                             break;
                         case 3:
-                            gulFågel = new GulFågel(gulFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                            gulFågel = new GulFågel(gulFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY, 15);
                             fåglar.Add(gulFågel);
                             break;
                         case 4:
-                            svartFågel = new SvartFågel(svartFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY);
+                            svartFågel = new SvartFågel(svartFågelSprite, 100, 600, tmpSpeedX, -tmpSpeedY, 20);
                             fåglar.Add(svartFågel);
                             break;
                     } 
             }
-
-            
             foreach (Fågel f in fåglar.ToList())
             {
                 f.UpdateFågel(window, gameTime);
-                if (f.IsAlive == false)
+                
+                if (f is GulFågel gul)
                 {
-                    hasShot = false;
-                    fåglar.Remove(f);
-                    markeringar.Clear();
-                    ballForce.Ready = false;
-                    ballAngle.Ready = false;
-                    ballForce.speed.X = ballSpeed;
-                    ballAngle.speed.X = ballSpeed;
-                    slangbellor.Remove(slangbella25);
-                    slangbellor.Remove(slangbella50);
-                    slangbellor.Remove(slangbella75);
-                    slangbellor.Remove(slangbella100);
+                    gul.ÖkaHastighetX(0, window, gameTime);
+                }
+                else if (f is BlåFågel blå)
+                {
+                    blå.ÖkaHastighetY(0, window, gameTime);
                 }
 
                 if (hasShot == true && gameTime.TotalGameTime.Milliseconds % 200 == 0)
@@ -328,7 +328,21 @@ namespace Arga_Fåglar_2
                     if (g.CheckCollision(f))
                     {
                         g.IsAlive = false;
+                        if (g is KungGris)
+                        {
+                            poäng += 10;
+                        }
+                        else if (g is Gris)
+                        {
+                            poäng += 5;
+                        }
                         grisar.Remove(g);
+                        f.HitPoints--;
+
+                        if (f.HitPoints <= 0)
+                        {
+                            f.IsAlive = false;
+                        }
                     }
                 }
                 foreach (Planka p in plankor.ToList())
@@ -336,12 +350,41 @@ namespace Arga_Fåglar_2
                     if (p.CheckCollision(f))
                     {
                         p.IsAlive = false;
+                        poäng++;
                         plankor.Remove(p);
+                        if (p is IsPlanka)
+                        {
+                            f.HitPoints--;
+                        }
+                        else if (p is TräPlanka)
+                        {
+                            f.HitPoints -= 3;
+                        }
+                        else if (p is MetalPlanka)
+                        {
+                            f.HitPoints -= 5;
+                        }
+                        else if (f.HitPoints <= 0)
+                        {
+                            f.IsAlive = false;
+                        }
                     }
                 }
+                if (f.IsAlive == false)
+                {
+                    hasShot = false;
+                    fåglar.Remove(f);
+                    markeringar.Clear();
+                    ballForce.Ready = false;
+                    ballAngle.Ready = false;
+                    ballForce.speed.X = ballSpeed;
+                    ballAngle.speed.X = ballSpeed;
+                    slangbellor.Remove(slangbella25);
+                    slangbellor.Remove(slangbella50);
+                    slangbellor.Remove(slangbella75);
+                    slangbellor.Remove(slangbella100);
+                }
             }
-
-
             return State.Run;
         }
 
@@ -377,6 +420,15 @@ namespace Arga_Fåglar_2
             {
                 p.Draw(spriteBatch);
             }
+            if (20 - antalFåglarSkjutna < 1)
+            {
+                printText.Print("Points " + poäng, spriteBatch, 5, 5);
+            }
+            else
+            {
+                printText.Print("Points: " + poäng * (20 - antalFåglarSkjutna), spriteBatch, 5, 5);
+            }
+                
         }
 
 

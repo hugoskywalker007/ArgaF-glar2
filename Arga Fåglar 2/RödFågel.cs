@@ -16,7 +16,7 @@ namespace Arga_Fåglar_2
         /// <param name="speedX"></param>
         /// <param name="speedY"></param>
         /// <param name="vinkel"></param>
-        public RödFågel(Texture2D texture, float X, float Y, float speedX, float speedY) : base(texture, X, Y, speedX, speedY)
+        public RödFågel(Texture2D texture, float X, float Y, float speedX, float speedY, int hitPoints) : base(texture, X, Y, speedX, speedY, hitPoints)
         {
             
         }
