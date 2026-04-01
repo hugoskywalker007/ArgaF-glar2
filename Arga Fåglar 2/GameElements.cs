@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,6 +54,7 @@ namespace Arga_Fåglar_2
         static Texture2D metalPlankaLodSprite;
         static Texture2D metalPlankaVågSprite;
         static PrintText printText;
+        static Texture2D explosion;
         static Random random;
         static float force;
         static float angle;
@@ -194,10 +196,11 @@ namespace Arga_Fåglar_2
             grisar.Add(new Gris(grisSprite, 1700, 443, 0, 0));
             grisar.Add(new Gris(grisSprite, 1820, 443, 0, 0));
 
-            //markeringar
+            //vfx
             markeringar = new List<ProjektilMarkering>();
             markeringSprite = content.Load<Texture2D>("images/vfx/markering");
-            
+            explosion = content.Load<Texture2D>("images/vfx/explosion");
+
             //bakgrund
             bakgrund = new Background(content.Load<Texture2D>("images/background/background"), 0, 0);
 
@@ -222,9 +225,10 @@ namespace Arga_Fåglar_2
             menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)State.Run);
             menu.AddItem(content.Load<Texture2D>("images/menu/highscore"), (int)State.HighScore);
             menu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)State.Quit);
-
+            
             //UI
             printText = new PrintText(content.Load<SpriteFont>("myFont"));
+
         }
 
         //menu update
@@ -299,15 +303,41 @@ namespace Arga_Fåglar_2
             foreach (Fågel f in fåglar.ToList())
             {
                 f.UpdateFågel(window, gameTime);
-                
-                if (f is GulFågel gul)
+                if (f is RödFågel röd)
                 {
-                    gul.ÖkaHastighetX(0, window, gameTime);
+                    röd.ÖkaHastighetY(window, gameTime);
+                }
+                else if (f is GulFågel gul)
+                {
+                    gul.ÖkaHastighetX(window, gameTime);
                 }
                 else if (f is BlåFågel blå)
                 {
-                    blå.ÖkaHastighetY(0, window, gameTime);
+                    blå.ÖkaHastighetY(window, gameTime);
                 }
+                else if (f is SvartFågel svart)
+                {
+                    if (svart.Explosion(window, gameTime) && !svart.hasExploded)
+                    {
+                        svart.Texture = explosion;
+                        svart.hasExploded = true;
+                        svart.explosionStartTime = gameTime.TotalGameTime.TotalMilliseconds;
+                    }
+
+                    if (svart.hasExploded)
+                    {
+                        if (gameTime.TotalGameTime.TotalMilliseconds - svart.explosionStartTime > 500)
+                        {
+                            fåglar.Remove(svart);
+                        }
+                    }
+                }
+                KeyboardState keyboardState = Keyboard.GetState();
+                if (keyboardState.IsKeyDown(Keys.R))
+                {
+                    f.IsAlive = false;
+                }
+
 
                 if (hasShot == true && gameTime.TotalGameTime.Milliseconds % 200 == 0)
                 {

@@ -44,6 +44,7 @@ namespace Arga_Fåglar_2
         public float Width { get { return this.texture.Width; } }
         public float Height { get { return this.texture.Height; } }
         public bool IsAlive { get { return isAlive; } set { isAlive = value; } }
+        public Texture2D Texture { get { return texture; } set { texture = value; } }
 
         //metoder
         public bool CheckCollision(PhysicalObject other) //kolla kollsion mellan två objekt 

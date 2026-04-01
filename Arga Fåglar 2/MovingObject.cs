@@ -26,6 +26,6 @@ namespace Arga_Fåglar_2
 
         //egenskaper
         public float speedX { get { return speedX; } set { speedX = value; } }
-        public float speedY { get { return speedY; } set { speedX = value; } }
+        public float speedY { get { return speedY; } set { speedY = value; } }
     }
 }

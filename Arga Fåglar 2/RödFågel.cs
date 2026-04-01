@@ -28,8 +28,16 @@ namespace Arga_Fåglar_2
         //}
 
         //metoder
-        
 
-        
+        public void ÖkaHastighetY(GameWindow window, GameTime gameTime)
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.Space))
+            {
+                speed.Y -= 20f;
+            }
+
+        }
+
     }
 }

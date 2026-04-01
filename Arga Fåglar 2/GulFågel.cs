@@ -29,7 +29,7 @@ namespace Arga_Fåglar_2
         //}
 
         //metoder
-        public void ÖkaHastighetX(float speedX, GameWindow window, GameTime gameTime)
+        public void ÖkaHastighetX(GameWindow window, GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Space))
