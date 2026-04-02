@@ -39,8 +39,8 @@ namespace Arga_Fåglar_2
         }
 
         //egenskaper
-        public float X { get { return this.vector.X; } }
-        public float Y { get { return this.vector.Y; } }
+        public float X { get { return this.vector.X; } set { this.vector.X = value; } }
+        public float Y { get { return this.vector.Y; } set { this.vector.Y = value; } }
         public float Width { get { return this.texture.Width; } }
         public float Height { get { return this.texture.Height; } }
         public bool IsAlive { get { return isAlive; } set { isAlive = value; } }

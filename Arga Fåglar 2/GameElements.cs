@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Arga_Fåglar_2
 {
-    internal class GameElements
+    internal static class GameElements
     {
         //medlemsvariabler
         static List<Fågel> fåglar;
@@ -62,6 +64,7 @@ namespace Arga_Fåglar_2
         static int ballSpeed = 1;
         static double poäng = 0;
         static int antalFåglarSkjutna = 0;
+        static SoundEffect explosionSFX;
 
 
         //olika gamestates
@@ -229,6 +232,11 @@ namespace Arga_Fåglar_2
             //UI
             printText = new PrintText(content.Load<SpriteFont>("myFont"));
 
+            //SFX
+            explosionSFX = content.Load<SoundEffect>("sounds/sfx/explosion");
+
+            //music
+
         }
 
         //menu update
@@ -319,7 +327,10 @@ namespace Arga_Fåglar_2
                 {
                     if (svart.Explosion(window, gameTime) && !svart.hasExploded)
                     {
+                        explosionSFX.Play();
                         svart.Texture = explosion;
+                        svart.X -= explosion.Width / 2;
+                        svart.Y -= explosion.Height / 2;
                         svart.hasExploded = true;
                         svart.explosionStartTime = gameTime.TotalGameTime.TotalMilliseconds;
                     }
@@ -328,7 +339,7 @@ namespace Arga_Fåglar_2
                     {
                         if (gameTime.TotalGameTime.TotalMilliseconds - svart.explosionStartTime > 500)
                         {
-                            fåglar.Remove(svart);
+                            svart.IsAlive = false;
                         }
                     }
                 }

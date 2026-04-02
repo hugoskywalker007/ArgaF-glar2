@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../sounds/mixkit-car-explosion-debris-1562.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../../sounds/mixkit-car-explosion-debris-1562.wav;sounds/sfx/explosionSFX.wav
+
 #begin H:/sprites/bar_ball.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,6 +42,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:H:/sprites/bar.png;images/bar/bar.png
+
+#begin H:/sprites/explosion.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:H:/sprites/explosion.png;images/vfx/explosion.png
 
 #begin H:/sprites/slangbella_0%.png
 /importer:TextureImporter
@@ -301,18 +319,6 @@
 /processorParam:TextureFormat=Color
 /build:images/planka/trä_våg.png
 
-#begin images/vfx/explosion.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:images/vfx/explosion.png
-
 #begin images/vfx/markering.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -331,4 +337,16 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:myFont.spritefont
+
+#begin sounds/music/01. Bad Piggies Theme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sounds/music/01. Bad Piggies Theme.mp3
+
+#begin sounds/music/Arab2018.Com_-_God_Syria_and_Bashar_(mp3.pm).mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sounds/music/Arab2018.Com_-_God_Syria_and_Bashar_(mp3.pm).mp3
 
